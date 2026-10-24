@@ -21,6 +21,14 @@
 >   Short Home only; hold Home 2 s still releases the remote. Startup after a cold boot is untested.
 > - Launcher only, no helper: `./install-windows.sh --launcher-only <TV IP>` with `noHelper: true`.
 
+![Home on an LG 49UK6340: dock with Netflix focused over a mountain wallpaper](docs/screenshots/tv-home.jpg)
+
+| Second row: the photo dims | Inputs menu |
+| --- | --- |
+| ![App grid with Bluetooth Audio focused](docs/screenshots/tv-grid.jpg) | ![Inputs menu open over a glacier wallpaper](docs/screenshots/tv-inputs.jpg) |
+
+*Captured from the TV (webOS 4.4) with the remote-control API; Wi-Fi network name shown as "Wi-Fi".*
+
 Keep your favorite apps in a personal dock and app grid, without sponsored rows
 in this launcher. The launcher and optional **Home Helper** run on the TV itself:
 your computer can be switched off after setup.
