@@ -1,5 +1,5 @@
 /* Settings use the same TV-scale layout in both editions. */
-#renewalPanel,.root-settings,#updatePanel{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(7,10,14,.93);color:#f5f7fa;font-family:Outfit,sans-serif}
+#renewalPanel,.root-settings,#updatePanel{position:fixed;top:0;right:0;bottom:0;left:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:rgba(7,10,14,.93);color:#f5f7fa;font-family:Outfit,sans-serif}
 #renewalPanel.hidden,#updatePanel.hidden,.root-settings[hidden]{display:none}
 .renewal-card,.root-settings-card{box-sizing:border-box;width:1120px;max-width:92vw;max-height:90vh;overflow:auto;padding:36px 44px;border:1px solid #414650;border-radius:24px;background:#202329;box-shadow:0 24px 100px #0008;scroll-padding:24px}
 .settings-heading{display:flex;align-items:center;justify-content:space-between;gap:24px}

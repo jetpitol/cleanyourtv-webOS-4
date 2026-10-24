@@ -13,10 +13,12 @@ import webbrowser
 
 ROOT = Path(__file__).resolve().parents[1]
 LAUNCHER_FILES = {
-    'index.html', 'style.css', 'renewal-panel.css', 'app.js', 'config.js',
+    'index.html', 'style.css', 'renewal-panel.css', 'tvos26.css', 'app.js', 'config.js',
     'user-data.js', 'update-panel.js', 'renewal-panel.js', 'profile-bootstrap.js',
     'native-bootstrap.js', 'helper-control.js', 'fonts/outfit.ttf', 'fonts/OFL.txt',
-}
+    'fonts/inter-400.ttf', 'fonts/inter-500.ttf', 'fonts/inter-600.ttf', 'fonts/inter-700.ttf', 'fonts/Inter-OFL.txt',
+    'wallpapers/CREDITS.txt',
+} | {'wallpapers/aerial-%02d.jpg' % n for n in range(1, 9)}
 DEMO_APPS = [
     ('youtube', 'YouTube', '#ffffff'),
     ('netflix', 'Netflix', '#ffffff'),
@@ -30,8 +32,9 @@ DEMO_APPS = [
     ('hbomax', 'HBO Max', '#5822b4'),
 ]
 ROOT_LAUNCHER_FILES = {
-    'index.html', 'app.js', 'style.css', 'config.js', 'apps.js',
+    'index.html', 'app.js', 'style.css', 'tvos26.css', 'config.js', 'apps.js',
     'fonts/outfit.ttf', 'fonts/OFL.txt',
+    'fonts/inter-400.ttf', 'fonts/inter-500.ttf', 'fonts/inter-600.ttf', 'fonts/inter-700.ttf', 'fonts/Inter-OFL.txt',
     'root-exit.js', 'root-settings.js', 'root-settings.css',
 }
 ICON_FILES = {app_id + '.svg' for app_id, _, _ in DEMO_APPS}

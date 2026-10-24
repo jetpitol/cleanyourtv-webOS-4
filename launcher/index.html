@@ -5,8 +5,12 @@
   <title>Home</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="renewal-panel.css">
+  <link rel="stylesheet" href="tvos26.css">
 </head>
 <body>
+  <!-- Optional photo backdrop (CONFIG.wallpapers); replaces the ambient glow when present. -->
+  <div id="wallpaper"></div>
+
   <!-- Ambient glow in the colour of the focused dock app; two layers so colours crossfade. -->
   <div id="ambientA" class="ambient"></div>
   <div id="ambientB" class="ambient"></div>
@@ -53,6 +57,24 @@
   <div id="toast"></div>
 
   <script src="config.js"></script>
+  <script>
+    // Wallpaper: a random CONFIG.wallpapers image, a different one on every return to Home.
+    (function () {
+      var list = (window.CONFIG && CONFIG.wallpapers) || [], el = document.getElementById('wallpaper'), last = -1;
+      if (!list.length) return;
+      document.body.className += ' has-wallpaper';
+      function pick() {
+        var i = Math.floor(Math.random() * list.length), img = new Image();
+        if (list.length > 1 && i === last) i = (i + 1) % list.length;
+        last = i;
+        // Swap only once decoded, so the old photo stays up instead of a black frame.
+        img.onload = function () { el.style.backgroundImage = 'url("' + list[i] + '")'; };
+        img.src = list[i];
+      }
+      pick();
+      document.addEventListener('webOSRelaunch', pick);
+    }());
+  </script>
   <script src="apps.js"></script>
   <script src="user-data.js"></script>
   <script src="update-panel.js"></script>

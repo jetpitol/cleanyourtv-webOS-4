@@ -2,6 +2,25 @@
 
 **A clean home screen for LG webOS. No root. No always-on computer.**
 
+> **This fork: webOS 4, Windows and an Apple TV look.** Based on
+> [Razdva122/clean-your-tv-lg-webos](https://github.com/Razdva122/clean-your-tv-lg-webos)
+> (commit `4220646`, 23 Oct 2026). Tested on one LG 49UK6340PTF (webOS 4.4, Chromium 53, Node 0.12).
+>
+> - **tvOS 26 theme** (`launcher/tvos26.css`): glass controls, 5:3 icons that lift on focus, Inter font
+>   (static, Latin + Vietnamese), photo wallpapers from Unsplash (`launcher/wallpapers/`), English
+>   display names and hidden LG stock apps (`launcher/config.js`).
+> - **Chromium 53 fixes**: no `inset`, no variable fonts, no flex `gap`; a lighter effects block for
+>   engines without `inset`.
+> - **Windows installer** (`install-windows.sh`, Git Bash): wraps `install.sh`, fixes POSIX file modes in
+>   Windows-built packages, and fetches the Developer Mode SSH key itself because webOS 4's Key Server
+>   closes within a minute or two.
+> - **webOS 4 Home Helper** (`native/webos4/`, `./install-windows.sh --webos4 <TV IP>`): Node 0.12
+>   controller and startup service. On webOS 4, launching the helper while it runs stalls every later
+>   app launch (black screen), so it is hidden from the LG app bar, reports a heartbeat to its service,
+>   and is started only once per boot or from **Resume Home** when the service says it is stopped.
+>   Short Home only; hold Home 2 s still releases the remote. Startup after a cold boot is untested.
+> - Launcher only, no helper: `./install-windows.sh --launcher-only <TV IP>` with `noHelper: true`.
+
 Keep your favorite apps in a personal dock and app grid, without sponsored rows
 in this launcher. The launcher and optional **Home Helper** run on the TV itself:
 your computer can be switched off after setup.

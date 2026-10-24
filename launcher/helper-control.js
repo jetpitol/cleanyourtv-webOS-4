@@ -22,9 +22,27 @@
       bridge.call(uri, JSON.stringify(payload));
     } catch (_) { finish({returnValue:false}); }
   }
+  // webOS 4 helper: it is not on the bus, so its startup service reports whether it is alive.
+  var viaService = !!(window.CONFIG && CONFIG.helperStatus === 'service');
+  function serviceStatus(callback) {
+    rpc('luna://com.local.nativehome.service/status', {}, function (result) {
+      callback(result.returnValue === true && typeof result.alive === 'boolean' ? !result.alive : null);
+    });
+  }
   function check() {
-    if (checking || busy || document.hidden || statusDenied) return;
+    // Launcher-only installs have no helper to resume.
+    if (checking || busy || document.hidden || statusDenied || (window.CONFIG && CONFIG.noHelper)) return;
     checking = true;
+    if (viaService) {
+      serviceStatus(function (isStopped) {
+        checking = false;
+        // Unknown status must never be presented as a stopped helper.
+        stopped = isStopped === true;
+        // The service can answer before app.js has loaded; the next 5 s check applies it then.
+        if (window.setHelperResumeVisible) window.setHelperResumeVisible(stopped);
+      });
+      return;
+    }
     rpc('luna://com.webos.service.bus/signal/registerServerStatus', {serviceName:'com.local.nativehome', subscribe:true}, function (result) {
       checking = false;
       if (result.returnValue !== false && typeof result.connected === 'boolean') {
@@ -43,6 +61,18 @@
     if (busy || !stopped) return;
     busy = true;
     window.helperResumeMessage('Enabling Home control…');
+    if (viaService) {
+      // Re-check right before launching: launching a running helper stalls webOS 4.
+      serviceStatus(function (isStopped) {
+        if (isStopped === true) { launchHelper(); return; }
+        busy = false; stopped = false;
+        if (window.setHelperResumeVisible) window.setHelperResumeVisible(false);
+      });
+      return;
+    }
+    launchHelper();
+  }};
+  function launchHelper() {
     rpc('luna://com.webos.applicationManager/launch', {id:'com.local.nativehome', params:{}}, function (result) {
       busy = false;
       if (result.returnValue === true) {
@@ -51,7 +81,7 @@
       }
       else window.helperResumeMessage('Could not enable Home control. Try again.');
     });
-  }};
+  }
   document.addEventListener('visibilitychange', check);
   document.addEventListener('webOSRelaunch', check);
   setInterval(check, 5000);

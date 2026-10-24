@@ -17,6 +17,8 @@ mkdir -p build/native-app/state build/native-service/state dist
 cp native/app/*.js native/app/*.json native/app/*.png build/native-app/
 cp -R native/app/vendor build/native-app/
 cp native/service/*.js native/service/*.json build/native-service/
+# Optional overlay replacing app/service files, e.g. NATIVE_OVERLAY=native/webos4 for webOS 4's Node 0.12.
+if [[ -n "${NATIVE_OVERLAY:-}" ]]; then cp "$NATIVE_OVERLAY"/app/* build/native-app/; cp "$NATIVE_OVERLAY"/service/* build/native-service/; fi
 touch build/native-app/state/.keep build/native-service/state/.keep
 "$ZIG" cc -target arm-linux-musleabi -Os -static -s native/app/detach.c -o build/native-app/detach
 "$ZIG" cc -target arm-linux-musleabi -Os -static -s native/prototype/relay.c native/prototype/filter.c -o build/native-app/relay

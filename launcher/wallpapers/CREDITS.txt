@@ -1,0 +1,9 @@
+Wallpapers: photos from Unsplash (https://unsplash.com/license), resized to 1920x1080.
+aerial-01.jpg  https://unsplash.com/photos/aerial-photo-of-foggy-mountains-1527pjeb6jg
+aerial-02.jpg  https://unsplash.com/photos/landscape-photography-of-mountains-twukN12EN7c
+aerial-03.jpg  https://unsplash.com/photos/mountain-ridges-under-warm-sky-ibikgDapcp4
+aerial-04.jpg  https://unsplash.com/photos/snow-capped-mountains-reflect-in-calm-water-at-sunset-PtzS6h6dk2E
+aerial-05.jpg  https://unsplash.com/photos/aerial-view-of-cityscape-at-night-aOLc2ENmTzo
+aerial-06.jpg  https://unsplash.com/photos/aerial-view-photography-of-sea-LlDQPnErFxo
+aerial-07.jpg  https://unsplash.com/photos/a-winding-river-flows-through-a-vast-dark-landscape-Y19Sstu3_DI
+aerial-08.jpg  https://unsplash.com/photos/an-aerial-view-of-a-river-and-mountains-9_CO7farOcM
