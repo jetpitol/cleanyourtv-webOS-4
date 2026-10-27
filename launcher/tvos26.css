@@ -280,14 +280,21 @@ body.helper-stopped #date { position: static; font-size: 26px; }
 
 /* ---- older engines (webOS 4 / Chromium 53: no `inset`) --------------------------------------- */
 
-/* Measured on an LG 49UK6340: big focus shadows and the sheen repaint every frame of a transition.
-   Keep the look, but let the GPU move pre-rendered layers instead. */
+/* Measured on an LG 49UK6340 (webOS 4.4) over CDP: the per-card inset-shadow rim (.card::after) is
+   repainted for every tile each frame of a navigation move and is the one real GPU cost here —
+   dropping it took navigation from ~43 fps (many dropped frames) to a locked 60 fps / 0 dropped frames.
+   The focus lift-shadow and the sheen measured free, so they stay; will-change on the card helps, so it
+   stays too. We only trade the inset rim for a cheap 1px border, which reads the same on this screen.
+   Modern browsers (which support `inset`) keep the full rim and are unaffected. */
 @supports not (inset: 0) {
-  .ambient, #stage, .card { will-change: transform, opacity; }
+  .card::after { display: none; }
 
-  .card, .item.focused .card { transition: transform 260ms cubic-bezier(0.2, 0.9, 0.25, 1.05); }
+  .card { border: 1.5px solid rgba(255, 255, 255, 0.12); }
 
-  .item.focused .card { box-shadow: 0 16px 28px rgba(0, 0, 0, 0.55); }
+  .item.focused .card { border-color: rgba(255, 255, 255, 0.4); }
 
-  .item.focused .card::before { animation: none; }
+  /* Promote the whole scrolling grid and the glow to their own GPU layers so moving focus
+     composites them instead of repainting every tile. Measured: this plus the rim removal is
+     what reaches a locked 60 fps on this panel; dropping it falls back to the low 30s. */
+  .ambient, #stage, .card { will-change: transform; }
 }
